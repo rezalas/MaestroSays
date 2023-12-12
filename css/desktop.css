@@ -26,6 +26,7 @@
     content: "";
     display: block;
     padding-top: 100%;
+    transition: opacity 0.5s;
 }
 .simonField {
     background-color: #000;
@@ -76,5 +77,4 @@
     transition: background-color .3s ease-in-out;
 }
 #freePlay {
-    display: none;
 }
