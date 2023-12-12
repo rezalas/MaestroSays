@@ -48,19 +48,21 @@ CBGames.SimonGame = CBGames.SimonGame || {
                 this.isPaused = true;
                 this.isGameActive = false;
 
-                var banner = $(".statusBanner");
-                var ptext = banner.children("p");
-                ptext.text("You Win! You've completed " + (this.currentRound) + " rounds, you're epic!");
+                var banner = document.getElementsByClassName("statusBanner")[0];
+                var ptext = banner.getElementsByTagName("p")[0]
+                ptext.innerText = "You Win! You've completed " + (this.currentRound) + " rounds, you're epic!";
                 banner.show();
             }
         } else { // flash an error color to let the player know the sequence was wrong
              this.playerSequence.splice(0,this.playerSequence.length);
-            $("#submitit").addClass("errorBtnColor").delay(300).queue(function() {
-               $(this).removeClass("errorBtnColor").dequeue(); 
+             errorElement = document.getElementById("submitit");
+             errorElement.classList.add("errorBtnColor");
+             setTimeout(function() {
+               errorElement.classList.remove("errorBtnColor");
                 setTimeout(function() {
                     CBGames.SimonGame.PlaySequenceToNumber(CBGames.SimonGame.currentRound + 1);
                 },200);
-            });          
+            },300);          
             // start the round over           
         }
     },
@@ -137,13 +139,15 @@ CBGames.SimonGame = CBGames.SimonGame || {
 
     showGameMenu: function() {
         this.isPaused = true;
-        $("#freePlay").hide();
-        $(".statusBanner").hide();
-        $("#gameMenu").show();
+        document.getElementById("freePlay").classList.add("hidden");
+        document.getElementsByClassName("statusBanner")[0].classList.add("hidden");
+        document.getElementById("gameMenu").classList.remove("hidden");
     },
 
-    toggleColor: function(buttonId) {
-        $("#"+buttonId).animate({"opacity": 0.75 },200).delay(100).animate({"opacity": 1 },200);        
+    toggleColor: function(buttonId) {       
+        elem = document.getElementById(buttonId);
+        elem.animate({"opacity": 0.75 },200)
+        elem.animate({"opacity": 1 },200);        
     },
 
     /**
@@ -169,7 +173,8 @@ CBGames.SimonGame = CBGames.SimonGame || {
 
 };
 
-$(".simonBlock").click(function() {
+[].slice.call(document.getElementsByClassName("simonBlock")).forEach(item => 
+    item.onclick = function() {
     if(CBGames.SimonGame.isPaused == false) {
         var pressedId = this.id;
 
@@ -182,41 +187,41 @@ $(".simonBlock").click(function() {
     }
 });
 
-$("#playit").click(function() {
+document.getElementById("playit").onclick = function() {
     CBGames.SimonGame.PlaySequenceToNumber(CBGames.SimonGame.maxRounds);
-});
+};
 
-$("#submitit").click(function() {
+document.getElementById("submitit").onclick = function() {
     if(CBGames.SimonGame.isGameActive) {
         CBGames.SimonGame.nextRound();
     }    
-});
+};
 
-$("#startGame").click(function() {
+document.getElementById("startGame").onclick = function() {
     if(CBGames.SimonGame.isGameActive == false) {
-        var difficulty = parseInt(($("#difficultySetting").val()));
+        var difficulty = parseInt((document.getElementById("difficultySetting").value));
         if(difficulty == 0) {
             // selected free play, don't start the game just move the bar out of the way.
-            $("#gameMenu").hide();
-            $("#freePlay").show();
+            document.getElementById("gameMenu").classList.add("hidden")
+            document.getElementById("freePlay").classList.remove("hidden");
             CBGames.SimonGame.isPaused = false;
         } else {
             CBGames.SimonGame.maxRounds = difficulty;
-            $("#gameMenu").hide();
+            document.getElementById("gameMenu").classList.add("hidden");
             CBGames.SimonGame.playGame();
         }
         
     }    
-});
+};
 
-$(".showGameMenu").click(function() {
+[].slice.call(document.getElementsByClassName("showGameMenu")).forEach(item => item.onclick = function() {
     CBGames.SimonGame.showGameMenu();
 });
 
-$("#clearMix").click(function(){
+document.getElementById("clearMix").onclick = function(){
     CBGames.SimonGame.generatedPattern.splice(0,CBGames.SimonGame.generatedPattern.length);
-});
+};
 
-$("#playMix").click(function() {
+document.getElementById("playMix").onclick = function() {
     CBGames.SimonGame.PlaySequenceToNumber(CBGames.SimonGame.generatedPattern.length);
-});
+};
