@@ -1,4 +1,10 @@
-
+html {
+    background: linear-gradient(135deg, #ffffff, #dce4f0);
+    height: 100%;
+}
+body {
+    min-height: 100%;
+}
 
 .redBlock {
     background-color: #ff0000;
@@ -37,15 +43,18 @@
     overflow: hidden;
 }
 .statusBanner {
-    background-color: rgb(90.6%, 92.1%, 61.8%);
-    display: none;
+    background-color: rgba(0, 0, 0, 0.82);
+    color: #fff;
     height: 80px;
     position: absolute;
     text-align: center;
     top: 30%;
     width: 100%;
     z-index: 1000;
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.75);
+    border: 2px solid #444;
 }
+
 .errorBtnColor {
     background-color: #f00 !important;
     border: 2px solid #000;
@@ -56,14 +65,16 @@
     transition: background-color .2s ease-in-out;;
 }*/
 #gameMenu {
-    background-color: rgb(90.6%, 92.1%, 61.8%);
-    color: #000; 
+    background-color: rgba(0, 0, 0, 0.82);
+    color: #fff;
     padding-bottom: 20px;
     position: absolute;
     text-align: center;
     top: 30%;
     width: 100%;
     z-index: 1000;
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.75);
+    border: 2px solid #444;
 }
 
 #submitit {
@@ -75,6 +86,8 @@
     width: 25%;
     z-index: 2;
     transition: background-color .3s ease-in-out;
+    border-color:#000;
+    box-shadow:0px 0px 3px 1px rgba(0,0,0,0.75);
 }
 #freePlay {
 }

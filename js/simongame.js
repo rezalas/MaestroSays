@@ -49,13 +49,13 @@ CBGames.SimonGame = CBGames.SimonGame || {
                 this.isGameActive = false;
 
                 var banner = document.getElementsByClassName("statusBanner")[0];
-                var ptext = banner.getElementsByTagName("p")[0]
+                var ptext = banner.getElementsByTagName("p")[0];
                 ptext.innerText = "You Win! You've completed " + (this.currentRound) + " rounds, you're epic!";
-                banner.show();
+                banner.classList.remove("hidden");
             }
         } else { // flash an error color to let the player know the sequence was wrong
              this.playerSequence.splice(0,this.playerSequence.length);
-             errorElement = document.getElementById("submitit");
+             let errorElement = document.getElementById("submitit");
              errorElement.classList.add("errorBtnColor");
              setTimeout(function() {
                errorElement.classList.remove("errorBtnColor");
@@ -123,15 +123,19 @@ CBGames.SimonGame = CBGames.SimonGame || {
         var id = this.colorList.indexOf(colorId);
         switch(id) {
             case 0:
+                this.redSound.stop();
                 this.redSound.play();
                 break;
             case 1:
+                this.yellowSound.stop();
                 this.yellowSound.play();
-            break;
+                break;
             case 2:
+                this.greenSound.stop();
                 this.greenSound.play();
                 break;
             case 3:
+                this.blueSound.stop();
                 this.blueSound.play();
                 break;
         }
@@ -145,9 +149,9 @@ CBGames.SimonGame = CBGames.SimonGame || {
     },
 
     toggleColor: function(buttonId) {       
-        elem = document.getElementById(buttonId);
-        elem.animate({"opacity": 0.75 },200)
-        elem.animate({"opacity": 1 },200);        
+        let elem = document.getElementById(buttonId);
+        elem.animate({"opacity": 0.50 },200).finished.then(() => 
+        elem.animate({"opacity": 1 },200));        
     },
 
     /**
